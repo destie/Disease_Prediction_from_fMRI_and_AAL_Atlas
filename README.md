@@ -5,9 +5,8 @@ Gulf War Illness (GWI) and Chronic Fatigue Syndrome (CFS) are debilitating condi
 
 Data was preprocessed by mapping activated voxels from fMRI scan to the Automated Anatomical Labeling (AAL) atlas. 
 
-These three studies employed a standard machine learning pipeline of feature extraction, feature reduction, model training, model validation, and cross-validation. (See here - Figure 1 from Provenzano, 2020). Data was split into a training and testing sample where the testing was not involved at all in feature selection or model training and was solely used as a holdout sample. 
+These three studies employed a standard machine learning pipeline of feature extraction, feature reduction, model training, model validation, and cross-validation. Data was split into a training and testing sample where the testing was not involved at all in feature selection or model training and was solely used as a holdout sample. 
 
-![image](https://user-images.githubusercontent.com/6370161/172745029-4ecdbec9-9dc8-418e-9240-455c53c83743.png)
 
 Each AAL region was considered a separate feature for input to the model. The total number of significant voxels for each AAL region composed the input. Feature reduction steps included Pearson's Correlation analysis, recursive feature elimination (RFE), and finally the machine learning algorithm. Two studies utilized a logistic regression, the third an ensembled model (Composed of K-Nearest Neighbor, Linear Support Vector Machine (SVM), Decision Tree, Random Forest, AdaBoost, Naïve Bayes, Quadratic Discriminant Analysis (QDA), Logistic Regression model, and Neural Net).
 
