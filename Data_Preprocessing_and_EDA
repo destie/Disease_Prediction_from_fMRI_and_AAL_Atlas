@@ -1,0 +1,171 @@
+####################################################################################
+#####################IMPORT RELEVANT PACKAGES#######################################
+import os
+import pandas
+import numpy as np
+import seaborn as sb
+
+#####################READ IN DATA####################################################
+pdata = pandas.read_csv(r'.\.csv')
+
+##############JOINED DATA TO AAL REGIONS HERE#######################################
+#######SEE HERE FOR LATEST AAL MAP: ################################################
+#########https://www.sciencedirect.com/science/article/pii/S1053811919307803
+
+#################GENERATE HEATMAP OF ACTIVATED AAL REGIONS###########################
+sb.heatmap(pdata.corr())  
+
+#######VISUALIZE HISTOGRAM OF VOXELS (ENSURED CONSISTENCY FOR VISUAL DATA)###########
+import matplotlib.pyplot as plt #importing matplotlib
+import seaborn as sns
+d = plt.imread(r".\.png")
+sns.set_style('darkgrid')
+sns.distplot(d)
+
+
+###########DEFINED LIST OF VARIABLES - MANUALLY DEFINED TO ENSURE CONSISTENCY#######
+y=['Group2']
+
+X = ['Unnamed: 0',
+'Amygdala_L (aal)',
+'Amygdala_R (aal)',
+'Angular_L (aal)',
+'Angular_R (aal)',
+'Calcarine_L (aal)',
+'Calcarine_R (aal)',
+'Caudate_L (aal)',
+'Caudate_R (aal)',
+'Cerebelum_10_L (aal)',
+'Cerebelum_10_R (aal)',
+'Cerebelum_3_L (aal)',
+'Cerebelum_3_R (aal)',
+'Cerebelum_4_5_L (aal)',
+'Cerebelum_4_5_R (aal)',
+'Cerebelum_6_L (aal)',
+'Cerebelum_6_R (aal)',
+'Cerebelum_7b_L (aal)',
+'Cerebelum_7b_R (aal)',
+'Cerebelum_8_L (aal)',
+'Cerebelum_8_R (aal)',
+'Cerebelum_9_L (aal)',
+'Cerebelum_9_R (aal)',
+'Cerebelum_Crus1_L (aal)',
+'Cerebelum_Crus1_R (aal)',
+'Cerebelum_Crus2_L (aal)',
+'Cerebelum_Crus2_R (aal)',
+'Cingulum_Ant_L (aal)',
+'Cingulum_Ant_R (aal)',
+'Cingulum_Mid_L (aal)',
+'Cingulum_Mid_R (aal)',
+'Cingulum_Post_L (aal)',
+'Cingulum_Post_R (aal)',
+'Cuneus_L (aal)',
+'Cuneus_R (aal)',
+'Frontal_Inf_Oper_L (aal)',
+'Frontal_Inf_Oper_R (aal)',
+'Frontal_Inf_Orb_L (aal)',
+'Frontal_Inf_Orb_R (aal)',
+'Frontal_Inf_Tri_L (aal)',
+'Frontal_Inf_Tri_R (aal)',
+'Frontal_Med_Orb_L (aal)',
+'Frontal_Med_Orb_R (aal)',
+'Frontal_Mid_L (aal)',
+'Frontal_Mid_Orb_L (aal)',
+'Frontal_Mid_Orb_R (aal)',
+'Frontal_Mid_R (aal)',
+'Frontal_Sup_L (aal)',
+'Frontal_Sup_Medial_L (aal)',
+'Frontal_Sup_Medial_R (aal)',
+'Frontal_Sup_Orb_L (aal)',
+'Frontal_Sup_Orb_R (aal)',
+'Frontal_Sup_R (aal)',
+'Fusiform_L (aal)',
+'Fusiform_R (aal)',
+'Heschl_L (aal)',
+'Heschl_R (aal)',
+'Hippocampus_L (aal)',
+'Hippocampus_R (aal)',
+'Insula_L (aal)',
+'Insula_R (aal)',
+'Lingual_L (aal)',
+'Lingual_R (aal)',
+'Occipital_Inf_L (aal)',
+'Occipital_Inf_R (aal)',
+'Occipital_Mid_L (aal)',
+'Occipital_Mid_R (aal)',
+'Occipital_Sup_L (aal)',
+'Occipital_Sup_R (aal)',
+'Olfactory_L (aal)',
+'Olfactory_R (aal)',
+'Pallidum_L (aal)',
+'Pallidum_R (aal)',
+'ParaHippocampal_L (aal)',
+'ParaHippocampal_R (aal)',
+'Paracentral_Lobule_L (aal)',
+'Paracentral_Lobule_R (aal)',
+'Parietal_Inf_L (aal)',
+'Parietal_Inf_R (aal)',
+'Parietal_Sup_L (aal)',
+'Parietal_Sup_R (aal)',
+'Postcentral_L (aal)',
+'Postcentral_R (aal)',
+'Precentral_L (aal)',
+'Precentral_R (aal)',
+'Precuneus_L (aal)',
+'Precuneus_R (aal)',
+'Putamen_L (aal)',
+'Putamen_R (aal)',
+'Rectus_L (aal)',
+'Rectus_R (aal)',
+'Rolandic_Oper_L (aal)',
+'Rolandic_Oper_R (aal)',
+'Supp_Motor_Area_L (aal)',
+'Supp_Motor_Area_R (aal)',
+'SupraMarginal_L (aal)',
+'SupraMarginal_R (aal)',
+'Temporal_Inf_L (aal)',
+'Temporal_Inf_R (aal)',
+'Temporal_Mid_L (aal)',
+'Temporal_Mid_R (aal)',
+'Temporal_Pole_Mid_L (aal)',
+'Temporal_Pole_Mid_R (aal)',
+'Temporal_Pole_Sup_L (aal)',
+'Temporal_Pole_Sup_R (aal)',
+'Temporal_Sup_L (aal)',
+'Temporal_Sup_R (aal)',
+'Thalamus_L (aal)',
+'Thalamus_R (aal)',
+'Vermis_10 (aal)',
+'Vermis_1_2 (aal)',
+'Vermis_3 (aal)',
+'Vermis_4_5 (aal)',
+'Vermis_6 (aal)',
+'Vermis_7 (aal)',
+'Vermis_8 (aal)',
+'Vermis_9 (aal)']
+
+
+
+###################RECURSIVE FEATURE ELIMINATION - RFE################
+#From here we import relevant packages from sklearn 
+from sklearn import datasets
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LogisticRegression
+
+#Instantiates our instance of logistic regression
+logreg = LogisticRegression()
+
+#RFE is a stepwise procedure, 18 sets the number of features to select to 18
+#rfe = RFE(logreg, 25)
+rfe = RFE(logreg)
+
+
+#This indicates to pull from our dataset x and y
+rfe = rfe.fit(day1_ctrl[X], day1_ctrl[y] )
+
+#This prints the results
+print(rfe.support_)
+print(rfe.ranking_)
+
+Df_day1_ctrl = pandas.DataFrame({"Region": X, "True/False": rfe.support_, "Ranking": rfe.ranking_})
+######DEAL WITH DATA AS YOU WISH FROM HERE - I WROTE TO CSV TO EVALUATE#########
