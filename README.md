@@ -13,8 +13,12 @@ Each AAL region was considered a separate feature for input to the model. The to
 Each model was validated on a separate testing set and final results were cross-validated using 5-fold cross validation. 
 
 Full study and final results for each can be found here: 
+
+
 https://www.frontiersin.org/articles/10.3389/fncom.2020.00002/full
+
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7407325/
+
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7287630/
 
 ****To cite this project please refer to the following three studies:
