@@ -1,0 +1,61 @@
+###############################TO BUILD LOGISTIC REGRESSION######################
+
+############################DEFINE VARIABLES#####################################
+y=day1_ctrl[['GROUP']]
+X=day1_ctrl[['Angular_L (aal)',	'Angular_R (aal)',	'Calcarine_L (aal)',	'Calcarine_R (aal)',	'Cerebelum_10_R (aal)',	'Cerebelum_4_5_L (aal)',	'Cerebelum_6_L (aal)',	'Cerebelum_6_R (aal)',	'Cerebelum_8_L (aal)',	'Cerebelum_8_R (aal)',	'Cerebelum_9_R (aal)',	'Cerebelum_Crus1_L (aal)',	'Cerebelum_Crus1_R (aal)',	'Cerebelum_Crus2_R (aal)',	'Cingulum_Mid_L (aal)',	'Cingulum_Mid_R (aal)',	'Frontal_Inf_Oper_L (aal)',	'Frontal_Inf_Orb_R (aal)',	'Frontal_Inf_Tri_L (aal)',	'Frontal_Inf_Tri_R (aal)',	'Frontal_Mid_L (aal)',	'Frontal_Mid_Orb_L (aal)',	'Frontal_Mid_Orb_R (aal)',	'Frontal_Mid_R (aal)',	'Frontal_Sup_Medial_L (aal)',	'Frontal_Sup_Medial_R (aal)',	'Frontal_Sup_Orb_L (aal)',	'Frontal_Sup_Orb_R (aal)',	'Frontal_Sup_R (aal)',	'Hippocampus_L (aal)',	'Insula_L (aal)',	'Insula_R (aal)',	'Lingual_L (aal)',	'Occipital_Inf_L (aal)',	'Occipital_Inf_R (aal)',	'Occipital_Mid_L (aal)',	'Occipital_Mid_R (aal)',	'Occipital_Sup_L (aal)',	'Parietal_Inf_L (aal)',	'Parietal_Sup_L (aal)',	'Postcentral_L (aal)',	'Postcentral_R (aal)',	'Precentral_L (aal)',	'Precentral_R (aal)',	'Precuneus_L (aal)',	'Precuneus_R (aal)',	'Rolandic_Oper_L (aal)',	'Supp_Motor_Area_L (aal)',	'SupraMarginal_L (aal)',	'SupraMarginal_R (aal)',	'Temporal_Inf_R (aal)',	'Temporal_Mid_R (aal)',	'Temporal_Pole_Mid_R (aal)',	'Vermis_4_5 (aal)',	'Vermis_6 (aal)',	'Vermis_7 (aal)',	'Vermis_9 (aal)']]
+
+####BUILDING MODEL - I EXPERIMENTED WITH THIS TWO WAYS - statsmodel then sklearn###
+#Next we import the stats models package and print the results
+import statsmodels.api as sm
+logit_model=sm.Logit(y,X)
+result=logit_model.fit()
+print(result.summary2())
+
+
+############################PRODUCTION CODE - SKLEARN TO TRAIN AND TEST#########
+#Next we split into testing and training data to test our results
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+from sklearn.linear_model import LogisticRegression
+from sklearn import metrics
+#Then we refit
+logreg = LogisticRegression()
+logreg.fit(X_train, y_train)
+#Now we score our testing dataset
+y_pred = logreg.predict(X_test)
+print('Accuracy of logistic regression classifier on test set: {:2f}'
+      .format(logreg.score(X_test, y_test)))
+      
+      
+
+###########################CROSS VALIDATION###################################
+from sklearn import model_selection
+from sklearn.model_selection import cross_val_score
+kfold = model_selection.KFold(n_splits=10, random_state=7)
+modelCV = LogisticRegression()
+scoring = 'accuracy'
+results = model_selection.cross_val_score(modelCV, X_train, y_train,
+cv=kfold, scoring=scoring)
+
+#########################GENERATE CROSSTAB AND ROC CURVE########################
+#To get the raw results of the analysis (How many TPs, FPs, TNs, FNs,)
+from sklearn.metrics import confusion_matrix
+confusion_matrix = confusion_matrix(y_test, y_pred)
+print(confusion_matrix)
+
+#Generates ROC curve
+from sklearn.metrics import roc_auc_score
+from sklearn.metrics import roc_curve
+logit_roc_auc = roc_auc_score(y_test, logreg.predict(X_test))
+fpr, tpr, thresholds = roc_curve(y_test, logreg.predict_proba(X_test)[:,1])
+plt.figure()
+plt.plot(fpr, tpr, label='Logistic Regression (area = %0.2f)' %
+logit_roc_auc)
+plt.plot([0, 1], [0, 1],'r--')
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('Receiver operating characteristic')
+plt.legend(loc="lower right")
+plt.savefig('Log_ROC')
+plt.show()
