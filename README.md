@@ -21,7 +21,7 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7407325/
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7287630/
 
-****To cite this project or use any of the code please refer to the following three studies:
+**To cite this project or use any of the code please refer to the following three studies:**
 
 Provenzano, D., Washington, S. D., & Baraniuk, J. N. (2020). A Machine Learning Approach to the Differentiation of Functional Magnetic Resonance Imaging Data of Chronic Fatigue Syndrome (CFS) From a Sedentary Control. In Frontiers in Computational Neuroscience (Vol. 14). Frontiers Media SA. https://doi.org/10.3389/fncom.2020.00002 
 
