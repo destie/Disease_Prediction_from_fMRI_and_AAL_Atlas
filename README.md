@@ -21,6 +21,30 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7407325/
 
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7287630/
 
+
+Included code files:
+
+**Data_Preprocessing_and_EDA:**
+Transforms voxel data into AAL regions and then identifies correlated regions. 
+
+**Identify_and_Plot_Regions_of_Functional_Connectivity:**
+General visualization code using Nilearn to create a series of stacked 2D slices showing what the activated voxels regions (from an fMRI scan) look like on the brain. 
+
+**Model_Training:**
+Generates and trains a logistic regression model on the activated brain regions identified in the EDA step to see if they are predictive of a disease state. 
+
+**Model_Validation:**
+Validates the model trained in the step above.
+
+**Plot_CFS_Brain_Regions_from_Model:**
+Visualizes the regions of the brain identified on fMRI scan of activity that corresponds to Chronic Fatigue Syndrome (CFS). This code requires brain scans to run. 
+
+**Plot_GWI_Brain_Regions_from_Model:**
+Visualizes the regions of the brain identified on fMRI scan of activity that corresponds to Gulf War Illness (GWI). This code requires brain scans to run. 
+
+**Plot_Resting_State_Network**:
+Demonstrates what a restating state network (through activated AAL regions) looks like on a 2D stacked visualization of the brain.
+
 **To cite this project or use any of the code please refer to the following three studies:**
 
 Provenzano, D., Washington, S. D., & Baraniuk, J. N. (2020). A Machine Learning Approach to the Differentiation of Functional Magnetic Resonance Imaging Data of Chronic Fatigue Syndrome (CFS) From a Sedentary Control. In Frontiers in Computational Neuroscience (Vol. 14). Frontiers Media SA. https://doi.org/10.3389/fncom.2020.00002 
